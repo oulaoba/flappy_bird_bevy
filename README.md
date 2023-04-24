@@ -25,6 +25,7 @@
 │   ├──fonts/
 │   └──images/
 ├── src/
+│   ├── build.rs
 │   ├── components.rs
 │   ├── constants.rs
 │   ├── main.rs
@@ -39,6 +40,7 @@
 - assets/audios 声音资源文件。
 - assets/fonts 字体资源文件。
 - assets/images 图片资源文件。
+- build.rs 构建之前执行的脚本文件。
 - components.rs 游戏组件定义。
 - constants.rs 负责存储游戏中用到的常量。
 - main.rs 负责游戏的逻辑、插件交互、等内容。
