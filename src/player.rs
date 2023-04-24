@@ -1,7 +1,7 @@
 use bevy::{
     prelude::{
-        Audio, Commands, Input, IntoSystemAppConfig, KeyCode, OnEnter, Plugin, Query, Res, ResMut,
-        Transform, Vec3, With,
+        Audio, Commands, Input, IntoSystemAppConfig, IntoSystemConfigs, KeyCode, OnEnter, OnUpdate,
+        Plugin, Query, Res, ResMut, Transform, Vec3, With,
     },
     sprite::{SpriteSheetBundle, TextureAtlasSprite},
     time::{Timer, TimerMode},
@@ -21,11 +21,10 @@ pub struct PlayerPlugin;
 
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
-        app.add_systems((
-            input_key_system,
-            bird_automatic_system,
-            spawn_bird_system.in_schedule(OnEnter(GameState::InGame)),
-        ));
+        app.add_systems(
+            (input_key_system, bird_automatic_system).in_set(OnUpdate(GameState::InGame)),
+        )
+        .add_system(spawn_bird_system.in_schedule(OnEnter(GameState::InGame)));
     }
 }
 
@@ -38,7 +37,7 @@ fn spawn_bird_system(
 ) {
     if !game_data.player_alive() {
         let bird = static_assets.player.clone();
-        let (x, y) = (-win_size.width / 3. / 2., win_size.height / 2. / 3.);
+        let (x, y) = (-win_size.width / 4. / 2., win_size.height / 2. / 3.);
         commands.spawn((
             SpriteSheetBundle {
                 texture_atlas: bird,

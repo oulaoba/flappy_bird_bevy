@@ -129,6 +129,7 @@ fn player_score_system(
                 // 增加得分并播放声音
                 game_data.add_score();
                 audio_player.play(static_assets.point_audio.clone());
+                game_data.call_obstacle_spawn();
             }
         }
         _ => (),

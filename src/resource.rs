@@ -9,13 +9,27 @@ use bevy::{
 pub struct GameData {
     score: u8,
     alive: bool,
+    need_add_obstacle: bool,
 }
 impl GameData {
     pub fn new() -> Self {
         Self {
             score: 0,
             alive: false,
+            need_add_obstacle: false,
         }
+    }
+
+    pub fn need_spawn_obstacle(&self) -> bool {
+        self.need_add_obstacle
+    }
+
+    pub fn obstacle_call_back(&mut self) {
+        self.need_add_obstacle = false;
+    }
+
+    pub fn call_obstacle_spawn(&mut self) {
+        self.need_add_obstacle = true;
     }
 
     pub fn alive(&mut self) {

@@ -13,8 +13,8 @@ use crate::{
 
 use bevy::{
     prelude::{
-        Commands, IntoSystemAppConfig, IntoSystemConfig, OnEnter, OnUpdate, Plugin, Res, Transform,
-        Vec3,
+        Commands, Entity, IntoSystemAppConfig, IntoSystemConfig, OnEnter, OnUpdate, Plugin, Query,
+        Res, ResMut, Transform, Vec3, With,
     },
     sprite::{Sprite, SpriteBundle},
     time::common_conditions::on_timer,
@@ -28,8 +28,8 @@ impl Plugin for ObstaclePlugin {
         app.add_system(obstacle_init_system.in_schedule(OnEnter(GameState::InGame)))
             .add_system(
                 spawn_obstacle_system
-                    .in_set(OnUpdate(GameState::InGame))
-                    .run_if(on_timer(Duration::from_secs_f32(SPAWN_OBSTACLE_TICK))),
+                    .run_if(on_timer(Duration::from_secs_f32(0.2)))
+                    .in_set(OnUpdate(GameState::InGame)),
             );
     }
 }
@@ -40,7 +40,13 @@ fn obstacle_init_system(
     static_assets: Res<StaticAssets>,
     win_size: Res<WinSize>,
     game_data: Res<GameData>,
+    query: Query<Entity, With<Obstacle>>,
 ) {
+    let count = query.iter().count();
+    if count >= 4 {
+        return;
+    }
+
     let mut rng = thread_rng();
     // 初始 x 坐标
     let x = win_size.width / 2. + PIPE_IMG_SIZE.0 / 2.;
@@ -129,10 +135,14 @@ fn obstacle_init_system(
 
 fn spawn_obstacle_system(
     mut commands: Commands,
+    mut game_data: ResMut<GameData>,
     static_assets: Res<StaticAssets>,
     win_size: Res<WinSize>,
-    game_data: Res<GameData>,
 ) {
+    if !game_data.need_spawn_obstacle() {
+        return;
+    }
+    game_data.obstacle_call_back();
     let mut rng = thread_rng();
     // 初始 x 坐标
     let x = win_size.width / 2. + PIPE_IMG_SIZE.0 / 2.;
