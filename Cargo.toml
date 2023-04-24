@@ -1,0 +1,13 @@
+[package]
+name = "flappy_bird_bevy"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bevy = { version = "0.10.1" }
+rand = "0.8.5"
+
+[workspace]
+resolver = "2"
