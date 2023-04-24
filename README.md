@@ -51,7 +51,7 @@
 ## about me 
 目前失业，在家学习 rust 。
 
-我的 [bilibili](https://space.bilibili.com/259260787),我的 [博客园](https://github.com/xh1109)。
+我的 [bilibili](https://space.bilibili.com/259260787),我的 [博客园](https://www.cnblogs.com/SantiagoZhang)。
 
 
 [Rust官网](https://www.rust-lang.org/)
