@@ -16,6 +16,25 @@
 通过空格向上飞行。
 按 P 暂停游戏，按 R 恢复游戏。
 
+> ## 新增 wasm 运行环境
+```
+1⃣️：安装 wasm-server-runner
+cargo install wasm-server-runner
+
+2⃣️：cargo.toml 文件新增配置
+[target.wasm32-unknown-unknown]
+runner = "wasm-server-runner"
+
+3⃣️：使用 wasm-server-runner 生成 wasm
+cargo run --target wasm32-unknown-unknown  
+
+4⃣️：运行 wasm
+wasm-server-runner target/wasm32-unknown-unknown/debug/flappy_bird_bevy.wasm
+
+5⃣️：打开服务器
+
+```
+
 
 ## 代码结构
 ```
